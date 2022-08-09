@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from manager.views import MainView
+from manager.views import AllAgents, MainView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MainView.as_view(), name="main"),
+    path('all_agents/', AllAgents.as_view(), name="all_agents"),
 ]
