@@ -1,6 +1,6 @@
 """Delivery URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The urlpatterns list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
 Function views
@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from manager.views import AllAgents, MainView
+from manager.views import About, AllAgents, MainView, PackingLists
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MainView.as_view(), name="main"),
+    path('about/', About.as_view(), name="about"),
     path('all_agents/', AllAgents.as_view(), name="all_agents"),
+    path('packing_lists/', PackingLists.as_view(), name="packing_lists"),
 ]
