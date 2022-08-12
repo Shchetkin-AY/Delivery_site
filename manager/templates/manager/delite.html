@@ -1,0 +1,18 @@
+{%  extends 'manager/_header.html' %}
+
+{% block content %}
+
+    <div class="card">
+      <div class="card-body px-4 pb-4">
+        <section class="tab-pane fade show active">
+		  <p>Вы уверены что хотите удалить накладную №{{ packinglist.pk }}</p>
+			<form method="POST">
+			{% csrf_token %}
+ 			  <a class="btn btn-success" href="{% url 'packing_lists' %}">Отменить</a>
+              <input class="btn btn-danger" type="submit" value="Удалить">
+			</form>
+        </section>
+      </div>
+	</div>
+
+{% endblock %}

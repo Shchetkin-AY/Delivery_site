@@ -1,9 +1,41 @@
 {% extends 'manager/_header.html' %}
 
 {% block content %}
-    <div class="container">
-      <br>
-        Список накладных
-      <br>
+    <div class="card">
+      <div class="card-body px-4 pb-4">
+        <section class="tab-pane fade show active">
+          <h2 class="h4 pt-2 pb-3">Список накладных</h2>
+            <div class="row">
+              <div class="col-md">
+
+                <table class="table table-sm">
+                <tr>
+                  <th>Номер накладной</th>
+                  <th>Отправитель</th>
+                  <th>Получатель</th>
+                  <th>Дата создания</th>
+                  <th>Обновить</th>
+                  <th>Удалить</th>
+                </tr>
+                {% for list in packing_lists %}
+                <tr>
+                  <td>{{list.pk}}</td>
+                  <td>{{list.sender.company}}</td>
+                  <td>{{list.destination.company}}</td>
+                  <td>{{list.created}}</td>
+                  <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
+                  <td><a class="btn btn-sm btn-danger" href="{% url 'delete_list' list.pk %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+                </table>
+              </div>
+            </div>
+            <div class="form-group pt-4">
+              <a href="{% url 'pack_list' %}" class="btn btn-primary">Создать накладную</a>
+            </div>
+        </section>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock content %}

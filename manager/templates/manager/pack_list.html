@@ -1,0 +1,20 @@
+{% extends 'manager/_header.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="card">
+      <div class="card-body px-4 pb-4">
+        <section class="tab-pane fade show active">
+          <h2 class="h4 pt-2 pb-3">Новая накладная</h2>
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <div class="form-group pt-4">
+                <button type="submit" class="btn btn-primary">Создать</button>
+              </div>
+            </form>
+        </section>
+      </div>
+    </div>
+{% endblock content %}
