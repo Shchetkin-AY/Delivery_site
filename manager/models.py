@@ -5,6 +5,8 @@ class Agent(models.Model):
     company = models.CharField(max_length=20)
     phone = models.CharField(max_length=11)
     inn_number = models.IntegerField()
+    def __str__(self):
+        return self.company
 
 class PackingList(models.Model):
     sender = models.ForeignKey(Agent, related_name='sender', on_delete=models.CASCADE)

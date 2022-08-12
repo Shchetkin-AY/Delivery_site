@@ -23,15 +23,15 @@
                   <td>{{list.sender.company}}</td>
                   <td>{{list.destination.company}}</td>
                   <td>{{list.created}}</td>
-                  <td><a class="btn btn-sm btn-info" href="#">Обновить</a></td>
-                  <td><a class="btn btn-sm btn-danger" href="{% url 'delete_list' list.pk %}">Удалить</a></td>
+                  <td><a class="btn btn-outline-secondary btn-sm" href="#">Обновить</a></td>
+                  <td><a class="btn btn-outline-danger btn-sm" href="{% url 'delete_list' list.pk %}">Удалить</a></td>
                 </tr>
                 {% endfor %}
                 </table>
               </div>
             </div>
             <div class="form-group pt-4">
-              <a href="{% url 'pack_list' %}" class="btn btn-primary">Создать накладную</a>
+              <a href="{% url 'pack_list' %}" class="btn btn-outline-primary btn-sm">Создать накладную</a>
             </div>
         </section>
       </div>
