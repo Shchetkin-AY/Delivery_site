@@ -31,7 +31,7 @@ class PackingLists(TemplateView):
 
 
 class PackingListNew(CreateView):
-    template_name = 'manager/pack_list.html'
+    template_name = 'manager/new_list.html'
     form_class = PackingListForm
     success_url = '/packing_lists/'
 
@@ -40,7 +40,7 @@ class PackingListNew(CreateView):
 
 class PackingListDelete(DeleteView):
     model = PackingList
-    template_name = "manager/delite.html"
+    template_name = "manager/delite_list.html"
     success_url = '/packing_lists/'
 
 
