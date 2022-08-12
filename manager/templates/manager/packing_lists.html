@@ -23,8 +23,8 @@
                   <td>{{list.sender.company}}</td>
                   <td>{{list.destination.company}}</td>
                   <td>{{list.created}}</td>
-                  <td><a class="btn btn-sm btn-info" href="#">Update</a></td>
-                  <td><a class="btn btn-sm btn-danger" href="{% url 'delete_list' list.pk %}">Delete</a></td>
+                  <td><a class="btn btn-sm btn-info" href="#">Обновить</a></td>
+                  <td><a class="btn btn-sm btn-danger" href="{% url 'delete_list' list.pk %}">Удалить</a></td>
                 </tr>
                 {% endfor %}
                 </table>

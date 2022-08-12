@@ -43,12 +43,8 @@ class PackingListDelete(DeleteView):
     template_name = "manager/delite_list.html"
     success_url = '/packing_lists/'
 
-
-    # def get_object(self, **kwargs):
-    #     pk = PackingList.objects.get(pk=self.kwargs['packinglist_pk'])
-    #     return pk
     def delete(self, request, *args, **kwargs):
-       self.object = self.get_object(id=self.request.pk)
+       self.object = self.get_object()
        self.object.delete()
        return redirect('packing_lists')
 
