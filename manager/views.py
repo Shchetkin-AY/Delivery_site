@@ -2,11 +2,12 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, DeleteView
 
-from manager.forms import PackingListForm
+from manager.forms import PackingListForm, AgentForm
 from manager.models import Agent, PackingList
 
 class MainView(TemplateView):
     template_name = 'manager/index.html'
+
     def get_context_data(self, **kwargs):
         context = super(MainView, self).get_context_data(**kwargs)
         context['agents'] = Agent.objects.all
@@ -20,10 +21,18 @@ class AllAgents(TemplateView):
         context['agents'] = Agent.objects.all
         return context
 
+class AgentNew(CreateView):
+    template_name = 'manager/new_agent.html'
+    form_class = AgentForm
+    success_url = '/all_agents/'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
 
 class PackingLists(TemplateView):
     template_name = 'manager/packing_lists.html'
+
     def get_context_data(self, **kwargs):
         context = super(PackingLists, self).get_context_data(**kwargs)
         context['packing_lists'] = PackingList.objects.all

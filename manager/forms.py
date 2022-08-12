@@ -1,8 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 
-from django.forms import forms, ModelForm,TextInput, ModelChoiceField
+from django.forms import forms, ModelForm
 
-from manager.models import PackingList
+from manager.models import PackingList, Agent
 
 class PackingListForm(ModelForm):
     class Meta:
@@ -15,3 +15,17 @@ class PackingListForm(ModelForm):
                   'volume': _('Объем'),
                   'places_count': _('Количество мест')
                   }
+
+class AgentForm(ModelForm):
+    class Meta:
+        model = Agent
+        fields = '__all__'
+        labels = {'company': _('Название'),
+                  'phone': _('Номер телефона'),
+                  'inn_number': _('ИНН'),
+                  }
+
+        error_messages = {'company': { 'value is less': ('Неверный формат названия компании'),}
+                         # 'phone': ('Неверный формат номера телефона'),
+                         # 'inn_number': ('ИНН должен состоять из 10 цифр')
+                                       }

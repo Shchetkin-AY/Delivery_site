@@ -1,0 +1,23 @@
+{% extends 'manager/_header.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="card">
+      <div class="card-body px-4 pb-4">
+        <section class="tab-pane fade show active">
+          <h2 class="h4 pt-2 pb-3">Новый контрагент</h2>
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <div class="form-group pt-4">
+                <button type="submit" class="btn btn-outline-success btn-sm">Создать</button>
+{#              </div>#}
+{#              <div class="form-group pt-4">#}
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'all_agents' %}">Отмена</a>
+              </div>
+            </form>
+        </section>
+      </div>
+    </div>
+{% endblock content %}
