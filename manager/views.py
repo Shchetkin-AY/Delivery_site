@@ -1,6 +1,6 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, DeleteView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 
 from manager.forms import PackingListForm, AgentForm
 from manager.models import Agent, PackingList
@@ -25,6 +25,24 @@ class AgentNew(CreateView):
     template_name = 'manager/new_agent.html'
     form_class = AgentForm
     success_url = '/all_agents/'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+class AgentEdit(CreateView):
+    template_name = 'manager/new_agent.html'
+    form_class = AgentForm
+    success_url = '/all_agents/'
+
+    # def get_queryset(self):
+    #     self.company = get_object_or_404(Agent, pk=self.kwargs["pk"])
+    #     self.queryset = self.company.objects.all()
+    #     return super(AgentEdit, self).get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super(AgentEdit, self).get_context_data(**kwargs)
+        context['agents'] = Agent.objects.filter(id=self.kwargs['pk'])
+        return context
 
     def form_valid(self, form):
         return super().form_valid(form)
