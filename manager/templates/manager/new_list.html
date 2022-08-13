@@ -1,4 +1,5 @@
 {% extends 'manager/_header.html' %}
+{% load crispy_forms_filters %}
 
 {% load crispy_forms_tags %}
 
@@ -6,12 +7,12 @@
     <div class="card">
       <div class="card-body px-4 pb-4">
         <section class="tab-pane fade show active">
-          <h2 class="h4 pt-2 pb-3">Новая накладная</h2>
+          <h2 class="h4 pt-2 pb-3">{% if not packinglist.pk %}Новая накладная{% else %}Накладная номер №{{ packinglist.pk }}{% endif %}</h2>
             <form method="post">
               {% csrf_token %}
               {{ form|crispy }}
               <div class="form-group pt-4">
-                <button type="submit" class="btn btn-outline-success btn-sm">Создать</button>
+                <button type="submit" class="btn btn-outline-success btn-sm">{% if not packinglist.pk %}Создать{% else %}Обновить{% endif %}</button>
                 <a class="btn btn-outline-secondary btn-sm" href="{% url 'packing_lists' %}">Отмена</a>
               </div>
             </form>
