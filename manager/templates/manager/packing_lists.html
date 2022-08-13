@@ -14,7 +14,7 @@
                   <th>Отправитель</th>
                   <th>Получатель</th>
                   <th>Дата создания</th>
-                  <th>Обновить</th>
+                  <th>Просмотреть/обновить</th>
                   <th>Удалить</th>
                 </tr>
                 {% for list in packing_lists %}
@@ -23,7 +23,7 @@
                   <td>{{list.sender.company}}</td>
                   <td>{{list.destination.company}}</td>
                   <td>{{list.created}}</td>
-                  <td><a class="btn btn-outline-secondary btn-sm" href="#">Обновить</a></td>
+                  <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'list_edit' list.pk %}">Просмотреть/обновить</a></td>
                   <td><a class="btn btn-outline-danger btn-sm" href="{% url 'delete_list' list.pk %}">Удалить</a></td>
                 </tr>
                 {% endfor %}

@@ -29,20 +29,18 @@ class AgentNew(CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-class AgentEdit(CreateView):
+class AgentEdit(UpdateView):
     template_name = 'manager/new_agent.html'
     form_class = AgentForm
     success_url = '/all_agents/'
 
-    # def get_queryset(self):
-    #     self.company = get_object_or_404(Agent, pk=self.kwargs["pk"])
-    #     self.queryset = self.company.objects.all()
-    #     return super(AgentEdit, self).get_queryset()
+    # def get(self, request, *args, **kwargs):
+    #     Agent.objects.get(pk=self.kwargs['pk'])
+    #     return super().get(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(AgentEdit, self).get_context_data(**kwargs)
-        context['agents'] = Agent.objects.filter(id=self.kwargs['pk'])
-        return context
+    def get_object(self, **kwargs):
+        company = Agent.objects.get(id=self.kwargs['pk'])
+        return company
 
     def form_valid(self, form):
         return super().form_valid(form)
@@ -64,6 +62,23 @@ class PackingListNew(CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+class PackingListEdit(UpdateView):
+    template_name = 'manager/new_list.html'
+    form_class = PackingListForm
+    success_url = '/packing_lists/'
+
+    # def get(self, request, *args, **kwargs):
+    #     Agent.objects.get(pk=self.kwargs['pk'])
+    #     return super().get(request, *args, **kwargs)
+
+    def get_object(self, **kwargs):
+        list = PackingList.objects.get(id=self.kwargs['pk'])
+        return list
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
 
 class PackingListDelete(DeleteView):
     model = PackingList

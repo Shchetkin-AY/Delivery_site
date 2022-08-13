@@ -26,6 +26,6 @@ class AgentForm(ModelForm):
                   }
 
         # error_messages = {'company': { 'value is less': ('Неверный формат названия компании')},
-        #                  # 'phone': ('Неверный формат номера телефона'),
-        #                  'inn_number': {'max_length': ('ИНН должен состоять из 10 цифр')}
-        #                                }
+                         # 'phone': ('Неверный формат номера телефона'),
+                         # 'inn_number': {'max_length': ('ИНН должен состоять из 10 цифр')}
+                         #               }

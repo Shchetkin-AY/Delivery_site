@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from manager.views import About, AgentNew, AgentEdit, AllAgents, MainView, PackingListNew, PackingLists, PackingListDelete
+from manager.views import About, AgentNew, AgentEdit, AllAgents, MainView, PackingListNew, PackingLists, PackingListDelete, PackingListEdit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,9 +24,10 @@ urlpatterns = [
     path('about/', About.as_view(), name="about"),
     path('all_agents/', AllAgents.as_view(), name="all_agents"),
     path('all_agents/new', AgentNew.as_view(), name="agent_new"),
-    path('all_agents/<int:pk>/', AgentEdit.as_view(), name="agent_edit"),
+    path('all_agents/<int:pk>/edit', AgentEdit.as_view(), name="agent_edit"),
 
     path('packing_lists/', PackingLists.as_view(), name="packing_lists"),
     path('packing_lists/new', PackingListNew.as_view(), name="pack_list"),
+    path('packing_lists/<int:pk>/edit', PackingListEdit.as_view(), name="list_edit"),
     path('packing_lists/<int:pk>/delete/', PackingListDelete.as_view(), name="delete_list"),
 ]
