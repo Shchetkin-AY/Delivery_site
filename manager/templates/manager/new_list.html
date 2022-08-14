@@ -12,9 +12,11 @@
               {% csrf_token %}
               {{ form|crispy }}
               <div class="form-group pt-4">
-                <button type="submit" class="btn btn-outline-success btn-sm">{% if not packinglist.pk %}Создать{% else %}Обновить{% endif %}</button>
-                <a class="btn btn-outline-secondary btn-sm" href="{% url 'packing_lists' %}">Отмена</a>
+                <button type="submit" class="btn btn-outline-success btn-sm">{% if not packinglist.pk %}Сохранить{% else %}Обновить{% endif %}</button>
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'packing_lists'  %}">Отмена</a>
               </div>
+            <div class="form-group pt-4">
+             <a class="btn btn-outline-secondary btn-sm" href="{%  url 'list_print' packinglist.pk %}" target="_blank">Печать</a></div>
             </form>
         </section>
       </div>

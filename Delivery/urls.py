@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from manager.views import About, AgentNew, AgentEdit, AllAgents, MainView, PackingListNew, PackingLists, PackingListDelete, PackingListEdit
+from manager.views import About, AgentNew, AgentEdit, AllAgents, MainView, PackingListNew, PackingLists, PackingListDelete, PackingListEdit, render_pdf_view
+
+from manager import  views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +31,7 @@ urlpatterns = [
     path('packing_lists/', PackingLists.as_view(), name="packing_lists"),
     path('packing_lists/new', PackingListNew.as_view(), name="pack_list"),
     path('packing_lists/<int:pk>/edit', PackingListEdit.as_view(), name="list_edit"),
+    path('packing_lists/<int:pk>/print', views.render_pdf_view, name="list_print"),
     path('packing_lists/<int:pk>/delete/', PackingListDelete.as_view(), name="delete_list"),
+
 ]

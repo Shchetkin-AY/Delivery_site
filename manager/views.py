@@ -1,5 +1,11 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.shortcuts import render
+
+from django.http import HttpResponse
+
+from django.template.loader import get_template
+
+from xhtml2pdf import pisa
+
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 
 from manager.forms import PackingListForm, AgentForm
@@ -34,10 +40,6 @@ class AgentEdit(UpdateView):
     form_class = AgentForm
     success_url = '/all_agents/'
 
-    # def get(self, request, *args, **kwargs):
-    #     Agent.objects.get(pk=self.kwargs['pk'])
-    #     return super().get(request, *args, **kwargs)
-
     def get_object(self, **kwargs):
         company = Agent.objects.get(id=self.kwargs['pk'])
         return company
@@ -51,7 +53,7 @@ class PackingLists(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(PackingLists, self).get_context_data(**kwargs)
-        context['packing_lists'] = PackingList.objects.all
+        context['packing_lists'] = PackingList.objects.all().order_by('id')
         return context
 
 
@@ -68,10 +70,6 @@ class PackingListEdit(UpdateView):
     form_class = PackingListForm
     success_url = '/packing_lists/'
 
-    # def get(self, request, *args, **kwargs):
-    #     Agent.objects.get(pk=self.kwargs['pk'])
-    #     return super().get(request, *args, **kwargs)
-
     def get_object(self, **kwargs):
         list = PackingList.objects.get(id=self.kwargs['pk'])
         return list
@@ -79,6 +77,24 @@ class PackingListEdit(UpdateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
+def render_pdf_view(request, *args, **kwargs):
+   pk = kwargs.get('pk')
+   list = get_object_or_404(PackingList, pk=pk)
+
+   template_path = 'manager/print_pdf.html'
+   context = {'list': list}
+   response = HttpResponse(content_type='application/pdf')
+
+   response['Content-Disposition'] = 'filename="report.pdf"'
+
+   template = get_template(template_path)
+   html = template.render(context)
+
+   pisa_status = pisa.CreatePDF(
+      html, dest=response)
+   if pisa_status.err:
+      return HttpResponse('We had some errors <pre>' + html + '</pre>')
+   return response
 
 class PackingListDelete(DeleteView):
     model = PackingList
