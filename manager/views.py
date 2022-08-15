@@ -1,12 +1,8 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect
 
-from django.http import HttpResponse
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView
 
-from django.template.loader import get_template
-
-from xhtml2pdf import pisa
-
-from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
+from wkhtmltopdf.views import PDFTemplateResponse
 
 from manager.forms import PackingListForm, AgentForm
 from manager.models import Agent, PackingList
@@ -77,24 +73,22 @@ class PackingListEdit(UpdateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-def render_pdf_view(request, *args, **kwargs):
-   pk = kwargs.get('pk')
-   list = get_object_or_404(PackingList, pk=pk)
+class MyPDF(DetailView):
+    template_name = 'manager/print_pdf.html'
+    context= {'title': 'Накладная'}
+    model = PackingList
 
-   template_path = 'manager/print_pdf.html'
-   context = {'list': list}
-   response = HttpResponse(content_type='application/pdf')
+    def get(self, request, *args, **kwargs):
+        self.context['list'] = self.get_object()
 
-   response['Content-Disposition'] = 'filename="report.pdf"'
-
-   template = get_template(template_path)
-   html = template.render(context)
-
-   pisa_status = pisa.CreatePDF(
-      html, dest=response)
-   if pisa_status.err:
-      return HttpResponse('We had some errors <pre>' + html + '</pre>')
-   return response
+        response = PDFTemplateResponse(request=request,
+                                     template=self.template_name,
+                                     filename ="Накладная.pdf",
+                                     context=self.context,
+                                     show_content_in_browser=True,
+                                     cmd_options={'margin-top': 10,}
+                                     )
+        return response
 
 class PackingListDelete(DeleteView):
     model = PackingList

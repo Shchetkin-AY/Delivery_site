@@ -1,8 +1,97 @@
-{% extends 'manager/_header.html' %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Накладная №{{ list.pk }}</title>
+</head>
 
-{% block content %}
-          <h2 class="h4 pt-2 pb-3">Накладная номер №</h2>
-            <ul>
-                {{ list.sender }}
-            </ul>
-{% endblock %}
+<body>
+<table>
+  <tr>
+    <td><table>
+      <tr>
+        <td><table>
+          <tr>
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:15px;">Отправитель:</td>
+          </tr>
+          <tr>
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:15px;">{{ list.sender }}</td>
+          </tr>
+          <tr>
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:15px;">Грузоперевозчик:</td>
+          </tr>
+          <tr>
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:400; font-size:14px;">Грузоперевозки</td>
+          </tr>
+
+            <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;">Адрес: Томск, Телефон: 7863087385  </td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+          </table></td>
+      </tr>
+    </table></td>
+    <td width="51%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;"  align="right">Создано: {{ list.created }}</td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:15px;" align="right">Заказчик:</td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;" align="right">{{ list.destination }}</td>
+      </tr>
+
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><br></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" width="34%" height="32" align="center">Описание груза</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center">Количество мест</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center">Вес, кг</td>
+      </tr>
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" height="32" align="center">{{ list.content }}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{ list.places_count }}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{ list.weight }}</td>
+      </tr>
+    </table></td>
+  </tr>
+
+  <tr>
+    <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" colspan="2">Уведомляем:</td>
+  </tr>
+  <tr>
+    <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;" colspan="2">Уважаемый заказчик, счет для оплаты поступит на вашу почту в течении 48 часов. При возникновении вопросов, просьба связаться с поддержкой support@delivery.com.</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px;" colspan="2">Благодарим, что воспользовались нашим сервисом.</td>
+  </tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px;" colspan="2" align="center"></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>
