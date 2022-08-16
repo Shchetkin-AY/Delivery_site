@@ -31,24 +31,27 @@
 <script>
 
 
-$(document).ready(function() {
-    $("#id_weight").on('input', function () {
-        console.log($(this).val());
-        $.ajax({
-            url: '/packing_lists/new',
-            type: 'POST',
-            data: {
-                weight: $("#id_weight").val(),
-                csrfmiddlewaretoken: '{{ csrf_token }}'
-            },
-            success: function (response) {
-                $("#id_price").val(response.weight)
-            }
+{#$(document).ready(function() {#}
+    {#event.preventDefault();#}
+{#    $("#id_weight").on('input', function () {#}
+{#        console.log($(this).val());#}
+{#        $.ajax({#}
+{#            url: '/packing_lists/new',#}
+{#            type: 'POST',#}
+{#            data: {#}
+{#                csrfmiddlewaretoken: '{{ csrf_token }}',#}
+{#                weight: $("#id_weight").val(),#}
+{#            },#}
+{#            success: function (data) {#}
+{#                $("#id_price").val(data)#}
+{#            }#}
+{##}
+{#        })#}
+{#    })#}
 
-        })
-    })
+$(document).ready(function (){
+
 })
-
 
 </script>
 

@@ -1,4 +1,6 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView, View
 
@@ -58,13 +60,15 @@ class PackingListNew(CreateView, View):
     form_class = PackingListForm
     success_url = '/packing_lists/'
 
-    def get_ajax(self, request):
-        if request.is_ajax():
-            weight = request.POST.post('weight')
-            print()
-            print(weight)
-            print()
-            # return render(request, 'manager/new_list.html')
+    # def post(self, request, *args, **kwargs):
+    #     data = dict()
+    #     weight = request.POST['weight']
+    #     print('*')
+    #     print(weight)
+    #     print('*')
+    #     context = {'prise': weight}
+    #     data['cost'] = render_to_string('manager/new_list.html', context,request=request)
+    #     return JsonResponse(data)
 
 
     def form_valid(self, form):
