@@ -16,5 +16,12 @@ class PackingList(models.Model):
     volume = models.IntegerField()
     places_count = models.IntegerField()
     created = models.DateField(auto_now_add=True)
+    price = models.IntegerField(null=True, default=0)
+
+    def save(self, *args, **kwargs):
+        self.price = self.volume * self.weight * self.places_count
+        print(self.price)
+        super(PackingList, self).save(*args, **kwargs)
+
 
 

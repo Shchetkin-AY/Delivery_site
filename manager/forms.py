@@ -13,7 +13,8 @@ class PackingListForm(ModelForm):
                   'content': _('Описание груза'),
                   'weight': _('Вес'),
                   'volume': _('Объем'),
-                  'places_count': _('Количество мест')
+                  'places_count': _('Количество мест'),
+                  'price': _('Стоимость')
                   }
 
 class AgentForm(ModelForm):

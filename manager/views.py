@@ -1,6 +1,6 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
-from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView, View
 
 from wkhtmltopdf.views import PDFTemplateResponse
 
@@ -53,13 +53,25 @@ class PackingLists(TemplateView):
         return context
 
 
-class PackingListNew(CreateView):
+class PackingListNew(CreateView, View):
     template_name = 'manager/new_list.html'
     form_class = PackingListForm
     success_url = '/packing_lists/'
 
+    def get_ajax(self, request):
+        if request.is_ajax():
+            weight = request.POST.post('weight')
+            print()
+            print(weight)
+            print()
+            # return render(request, 'manager/new_list.html')
+
+
     def form_valid(self, form):
         return super().form_valid(form)
+
+
+
 
 class PackingListEdit(UpdateView):
     template_name = 'manager/new_list.html'

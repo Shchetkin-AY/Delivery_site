@@ -8,10 +8,11 @@
       <div class="card-body px-4 pb-4">
         <section class="tab-pane fade show active">
           <h2 class="h4 pt-2 pb-3">{% if not packinglist.pk %}Новая накладная{% else %}Накладная номер №{{ packinglist.pk }}{% endif %}</h2>
-            <form method="post">
+            <form id="list_form" method="post">
               {% csrf_token %}
               {{ form|crispy }}
               <div class="form-group pt-4">
+              <a id="price_button" type="submit" class="btn btn-outline-success btn-sm">Рассчитать стоимость</a>
                 <button type="submit" class="btn btn-outline-success btn-sm">{% if not packinglist.pk %}Сохранить{% else %}Обновить{% endif %}</button>
                 <a class="btn btn-outline-secondary btn-sm" href="{% url 'packing_lists'  %}">Отмена</a>
               </div>
@@ -24,4 +25,33 @@
         </section>
       </div>
     </div>
+
+
+
+<script>
+
+
+$(document).ready(function() {
+    $("#id_weight").on('input', function () {
+        console.log($(this).val());
+        $.ajax({
+            url: '/packing_lists/new',
+            type: 'POST',
+            data: {
+                weight: $("#id_weight").val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function (response) {
+                $("#id_price").val(response.weight)
+            }
+
+        })
+    })
+})
+
+
+</script>
+
+
+
 {% endblock content %}
