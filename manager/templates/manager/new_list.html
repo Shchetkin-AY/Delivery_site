@@ -1,9 +1,9 @@
 {% extends 'manager/_header.html' %}
 {% load crispy_forms_filters %}
-
 {% load crispy_forms_tags %}
 
 {% block content %}
+
     <div class="card">
       <div class="card-body px-4 pb-4">
         <section class="tab-pane fade show active">
@@ -12,7 +12,6 @@
               {% csrf_token %}
               {{ form|crispy }}
               <div class="form-group pt-4">
-              <a id="price_button" type="submit" class="btn btn-outline-success btn-sm">Рассчитать стоимость</a>
                 <button type="submit" class="btn btn-outline-success btn-sm">{% if not packinglist.pk %}Сохранить{% else %}Обновить{% endif %}</button>
                 <a class="btn btn-outline-secondary btn-sm" href="{% url 'packing_lists'  %}">Отмена</a>
               </div>
@@ -25,36 +24,20 @@
         </section>
       </div>
     </div>
-
-
-
-<script>
-
-
-{#$(document).ready(function() {#}
-    {#event.preventDefault();#}
-{#    $("#id_weight").on('input', function () {#}
-{#        console.log($(this).val());#}
-{#        $.ajax({#}
-{#            url: '/packing_lists/new',#}
-{#            type: 'POST',#}
-{#            data: {#}
-{#                csrfmiddlewaretoken: '{{ csrf_token }}',#}
-{#                weight: $("#id_weight").val(),#}
-{#            },#}
-{#            success: function (data) {#}
-{#                $("#id_price").val(data)#}
-{#            }#}
-{##}
-{#        })#}
-{#    })#}
-
+    <script>
 $(document).ready(function (){
+    $('.asteriskField').hide()
+
+document.getElementById('id_price').setAttribute("readonly", "readonly")
 
 })
-
-</script>
-
-
-
+$('#id_weight').on('input', function (){
+    $('#id_price').val($('#id_weight').val()*$('#id_volume').val()*$('#id_places_count').val())
+})
+$('#id_volume').on('input', function (){
+    $('#id_price').val($('#id_weight').val()*$('#id_volume').val()*$('#id_places_count').val())
+})
+$('#id_places_count').on('input', function (){
+    $('#id_price').val($('#id_weight').val()*$('#id_volume').val()*$('#id_places_count').val())})
+    </script>
 {% endblock content %}
