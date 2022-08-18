@@ -1,0 +1,29 @@
+{% extends 'manager/_header.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<form method="post">
+{% csrf_token %}
+  <div class="container">
+    <div class="row">
+      <div class="col-8 col-lg-4 offset-2 offset-lg-4">
+        <div class="text-center mt-5 b-1">
+          <h1 class="h3 mb-3 font-weight-normal">Добро пожаловать</h1>
+            <h5 class="h15 mb-3 font-weight-light">Войдите чтобы управлять</h5>
+            {{ form|crispy }}
+            <br>
+            <button type="submit" class="btn btn-success">Войти</button>
+            <div class="mt-4 text-center"><p>Нет аккаунта? <a href="{% url "registration" %}">Зарегистрируйтесь!</a></p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script type="text/javascript">
+	$("#id_password").password('toggle');
+</script>
+
+{% endblock content %}
