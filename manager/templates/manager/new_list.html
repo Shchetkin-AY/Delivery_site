@@ -18,20 +18,24 @@
               </div>
             {% if packinglist.pk %}
             <div class="form-group pt-4">
-             <a class="btn btn-outline-secondary btn-sm" href="{% url 'list_print' packinglist.pk %}" target="_blank">Печать</a>
+
             </div>
             {% endif %}
             </form>
         </section>
       </div>
     </div>
-    <script>
+
+<script>
+{#скрыть "*" в названиях полей формы#}
 $(document).ready(function (){
     $('.asteriskField').hide()
 
-document.getElementById('id_price').setAttribute("readonly", "readonly")
+    {#заблокировать поле "цена"#}
+    document.getElementById('id_price').setAttribute("readonly", "readonly")
+    })
 
-})
+{#Функция подсчета стоимости при изменении данных формы#}
 $('#id_weight').on('input', function (){
     $('#id_price').val(($('#id_weight').val()*5)+($('#id_volume').val()*1200)+$('#id_places_count').val()*150)
 })
@@ -40,5 +44,6 @@ $('#id_volume').on('input', function (){
 })
 $('#id_places_count').on('input', function (){
         $('#id_price').val(($('#id_weight').val()*5)+($('#id_volume').val()*1200)+$('#id_places_count').val()*150)})
-    </script>
+</script>
+
 {% endblock content %}

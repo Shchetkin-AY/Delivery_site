@@ -7,8 +7,8 @@
     <div class="card">
       <div class="card-body px-4 pb-4">
         <section class="tab-pane fade show active">
-            <h2 class="h4 pt-2 pb-3">{% if not agent.pk %}Новая карта</h2>
-            {% else %}Редактирование карты контрагента</h2>
+            <h2 class="h4 pt-2 pb-3">{% if not agent.pk %}Новая карта контрагента</h2>
+            {% else %}Редактирование карты контрагента "{{ agent.company }}"</h2>
               {% endif %}
             <form method="post">
               {% csrf_token %}

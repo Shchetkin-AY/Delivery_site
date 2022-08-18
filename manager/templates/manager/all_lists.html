@@ -10,20 +10,24 @@
 
                 <table class="table table-sm">
                 <tr>
+                  <th></th>
                   <th>Номер накладной</th>
                   <th>Отправитель</th>
                   <th>Получатель</th>
                   <th>Дата создания</th>
                   <th>Просмотреть/обновить</th>
+                  <th>Печать</th>
                   <th>Удалить</th>
                 </tr>
                 {% for list in packing_lists %}
                 <tr>
+                  <td>{{forloop.counter}}.</td>
                   <td>{{list.pk}}</td>
                   <td>{{list.sender.company}}</td>
                   <td>{{list.destination.company}}</td>
-                  <td>{{list.created}}</td>
+                  <td>{{list.created|date:"d.m.Y"}} г.</td>
                   <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'list_edit' list.pk %}">Просмотреть/обновить</a></td>
+                  <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'list_print' list.pk %}" target="_blank">Печать</a></td>
                   <td><a class="btn btn-outline-danger btn-sm" href="{% url 'delete_list' list.pk %}">Удалить</a></td>
                 </tr>
                 {% endfor %}

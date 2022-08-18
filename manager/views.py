@@ -39,15 +39,15 @@ class AgentEdit(UpdateView):
     success_url = '/all_agents/'
 
     def get_object(self, **kwargs):
-        company = Agent.objects.get(id=self.kwargs['pk'])
-        return company
+        agent = Agent.objects.get(id=self.kwargs['pk'])
+        return agent
 
     def form_valid(self, form):
         return super().form_valid(form)
 
 
 class PackingLists(TemplateView):
-    template_name = 'manager/packing_lists.html'
+    template_name = 'manager/all_lists.html'
 
     def get_context_data(self, **kwargs):
         context = super(PackingLists, self).get_context_data(**kwargs)
@@ -91,7 +91,7 @@ class PackingListEdit(UpdateView):
 
 class MyPDF(DetailView):
     template_name = 'manager/print_pdf.html'
-    context= {'title': 'Накладная'}
+    context = {'title': 'Накладная'}
     model = PackingList
 
     def get(self, request, *args, **kwargs):
