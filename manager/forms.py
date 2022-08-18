@@ -20,7 +20,7 @@ class PackingListForm(ModelForm):
 class AgentForm(ModelForm):
     class Meta:
         model = Agent
-        fields = []
+        fields = '__all__'
         labels = {'company': _('Название'),
                   'phone': _('Номер телефона'),
                   'inn_number': _('ИНН'),

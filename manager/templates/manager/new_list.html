@@ -11,6 +11,7 @@
             <form id="list_form" method="post">
               {% csrf_token %}
               {{ form|crispy }}
+            <small>*ср.стоимость 1кг=5р. *ср.стоимость 1куб.м=1200р. *ср.стоимость 1мес=150р.</small>
               <div class="form-group pt-4">
                 <button type="submit" class="btn btn-outline-success btn-sm">{% if not packinglist.pk %}Сохранить{% else %}Обновить{% endif %}</button>
                 <a class="btn btn-outline-secondary btn-sm" href="{% url 'packing_lists'  %}">Отмена</a>
@@ -32,12 +33,12 @@ document.getElementById('id_price').setAttribute("readonly", "readonly")
 
 })
 $('#id_weight').on('input', function (){
-    $('#id_price').val($('#id_weight').val()*$('#id_volume').val()*$('#id_places_count').val())
+    $('#id_price').val(($('#id_weight').val()*5)+($('#id_volume').val()*1200)+$('#id_places_count').val()*150)
 })
 $('#id_volume').on('input', function (){
-    $('#id_price').val($('#id_weight').val()*$('#id_volume').val()*$('#id_places_count').val())
+    $('#id_price').val(($('#id_weight').val()*5)+($('#id_volume').val()*1200)+$('#id_places_count').val()*150)
 })
 $('#id_places_count').on('input', function (){
-    $('#id_price').val($('#id_weight').val()*$('#id_volume').val()*$('#id_places_count').val())})
+        $('#id_price').val(($('#id_weight').val()*5)+($('#id_volume').val()*1200)+$('#id_places_count').val()*150)})
     </script>
 {% endblock content %}
