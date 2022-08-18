@@ -26,7 +26,7 @@
                   <td>{{list.sender.company}}</td>
                   <td>{{list.destination.company}}</td>
                   <td>{{list.created|date:"d.m.Y"}} г.</td>
-                  <td><a class="btn btn-outline-info btn-sm" href="{% url 'list_edit' list.pk %}">Просмотреть/обновить</a></td>
+                  <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'list_edit' list.pk %}">Просмотреть/обновить</a></td>
                   <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'list_print' list.pk %}" target="_blank">Печать</a></td>
                   <td><a class="btn btn-outline-danger btn-sm" href="{% url 'delete_list' list.pk %}">Удалить</a></td>
                 </tr>

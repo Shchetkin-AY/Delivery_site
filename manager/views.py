@@ -1,9 +1,11 @@
-from django.shortcuts import redirect, render
+from django.http import HttpResponseNotFound, HttpResponseServerError
+
+from django.shortcuts import redirect
 
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView, View
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-
 
 from wkhtmltopdf.views import PDFTemplateResponse
 
@@ -29,15 +31,11 @@ class LoginUserView(LoginView):
     authentication_form = LoginUserForm
     next_page = 'main'
 
-
+# главная старница
 class MainView(TemplateView):
     template_name = 'manager/index.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(MainView, self).get_context_data(**kwargs)
-    #     context['agents'] = Agent.objects.all
-    #     return context
-
+# список контрагентов
 class AllAgents(LoginRequiredMixin, TemplateView):
     template_name = 'manager/all_agents.html'
 
@@ -46,6 +44,7 @@ class AllAgents(LoginRequiredMixin, TemplateView):
         context['agents'] = Agent.objects.all
         return context
 
+# создать контрагента
 class AgentNew(LoginRequiredMixin ,CreateView):
     template_name = 'manager/new_agent.html'
     form_class = AgentForm
@@ -54,6 +53,7 @@ class AgentNew(LoginRequiredMixin ,CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
+# редактировнае контрагента
 class AgentEdit(LoginRequiredMixin, UpdateView):
     template_name = 'manager/new_agent.html'
     form_class = AgentForm
@@ -66,7 +66,7 @@ class AgentEdit(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-
+# список накладных
 class PackingLists(LoginRequiredMixin, TemplateView):
     template_name = 'manager/all_lists.html'
 
@@ -75,29 +75,16 @@ class PackingLists(LoginRequiredMixin, TemplateView):
         context['packing_lists'] = PackingList.objects.all().order_by('id')
         return context
 
-
+# создание накладной
 class PackingListNew(LoginRequiredMixin, CreateView, View):
     template_name = 'manager/new_list.html'
     form_class = PackingListForm
     success_url = '/packing_lists/'
 
-    # def post(self, request, *args, **kwargs):
-    #     data = dict()
-    #     weight = request.POST['weight']
-    #     print('*')
-    #     print(weight)
-    #     print('*')
-    #     context = {'prise': weight}
-    #     data['cost'] = render_to_string('manager/new_list.html', context,request=request)
-    #     return JsonResponse(data)
-
-
     def form_valid(self, form):
         return super().form_valid(form)
 
-
-
-
+# редактировнае накладной
 class PackingListEdit(LoginRequiredMixin, UpdateView):
     template_name = 'manager/new_list.html'
     form_class = PackingListForm
@@ -110,6 +97,7 @@ class PackingListEdit(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
+# печать PDF
 class MyPDF(DetailView):
     template_name = 'manager/print_pdf.html'
     context = {'title': 'Накладная'}
@@ -127,6 +115,7 @@ class MyPDF(DetailView):
                                      )
         return response
 
+# удалить накладную
 class PackingListDelete(DeleteView):
     model = PackingList
     template_name = "manager/delite_list.html"
@@ -137,5 +126,12 @@ class PackingListDelete(DeleteView):
        self.object.delete()
        return redirect('packing_lists')
 
+# страница о нас
 class About(TemplateView):
     template_name = 'manager/about.html'
+
+# хэндлеры ошибок
+def custom_handler404(request, exception=None):
+    return HttpResponseNotFound('Ресурс не найден!', status=404)
+def custom_handler500(request):
+    return HttpResponseServerError('Ошибка сервера!')
