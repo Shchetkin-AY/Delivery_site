@@ -1,23 +1,44 @@
-from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from django.template.loader import render_to_string
 
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView, View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
+
 
 from wkhtmltopdf.views import PDFTemplateResponse
 
-from manager.forms import PackingListForm, AgentForm
+from manager.forms import PackingListForm, AgentForm, CreateUserForm, LoginUserForm
 from manager.models import Agent, PackingList
+
+
+# Страница регистрации нового пользователя. При создании идет проверка соответствия требованиям
+class RegisterUserView(CreateView):
+    template_name = 'manager/registration.html'
+    form_class = CreateUserForm
+    success_url = 'authentication'
+    def form_valid(self, form):
+        if form.is_valid():
+            form.save()
+            return redirect('authentication')
+        return super(RegisterUserView, self).form_valid(form)
+
+
+# страница аутентификации пользователя
+class LoginUserView(LoginView):
+    template_name = 'manager/authentication.html'
+    authentication_form = LoginUserForm
+    next_page = 'main'
+
 
 class MainView(TemplateView):
     template_name = 'manager/index.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(MainView, self).get_context_data(**kwargs)
-        context['agents'] = Agent.objects.all
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(MainView, self).get_context_data(**kwargs)
+    #     context['agents'] = Agent.objects.all
+    #     return context
 
-class AllAgents(TemplateView):
+class AllAgents(LoginRequiredMixin, TemplateView):
     template_name = 'manager/all_agents.html'
 
     def get_context_data(self, **kwargs):
@@ -25,7 +46,7 @@ class AllAgents(TemplateView):
         context['agents'] = Agent.objects.all
         return context
 
-class AgentNew(CreateView):
+class AgentNew(LoginRequiredMixin ,CreateView):
     template_name = 'manager/new_agent.html'
     form_class = AgentForm
     success_url = '/all_agents/'
@@ -33,7 +54,7 @@ class AgentNew(CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-class AgentEdit(UpdateView):
+class AgentEdit(LoginRequiredMixin, UpdateView):
     template_name = 'manager/new_agent.html'
     form_class = AgentForm
     success_url = '/all_agents/'
@@ -46,7 +67,7 @@ class AgentEdit(UpdateView):
         return super().form_valid(form)
 
 
-class PackingLists(TemplateView):
+class PackingLists(LoginRequiredMixin, TemplateView):
     template_name = 'manager/all_lists.html'
 
     def get_context_data(self, **kwargs):
@@ -55,7 +76,7 @@ class PackingLists(TemplateView):
         return context
 
 
-class PackingListNew(CreateView, View):
+class PackingListNew(LoginRequiredMixin, CreateView, View):
     template_name = 'manager/new_list.html'
     form_class = PackingListForm
     success_url = '/packing_lists/'
@@ -77,7 +98,7 @@ class PackingListNew(CreateView, View):
 
 
 
-class PackingListEdit(UpdateView):
+class PackingListEdit(LoginRequiredMixin, UpdateView):
     template_name = 'manager/new_list.html'
     form_class = PackingListForm
     success_url = '/packing_lists/'
@@ -115,7 +136,6 @@ class PackingListDelete(DeleteView):
        self.object = self.get_object()
        self.object.delete()
        return redirect('packing_lists')
-
 
 class About(TemplateView):
     template_name = 'manager/about.html'

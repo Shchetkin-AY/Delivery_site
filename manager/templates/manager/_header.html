@@ -17,35 +17,39 @@
 
 <body>
   <main class="container mt-3 pb-5">
-    <nav class="navbar sticky-top navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'main' %}">Грузоперевозки</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">{% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'packing_lists' %}">Список накладных</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'all_agents' %}">Список контрагентов</a>
+              <a class="nav-link active" href="{% url 'all_agents' %}">Список контрагентов</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Создать
               </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'pack_list' %}">Накладную</a></li>
-            <li><a class="dropdown-item" href="{% url 'agent_new' %}">Контрагента</a></li>
-          </ul>
-        </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">О нас</a>
+              <ul class="dropdown-menu active">
+                <li><a class="dropdown-item" href="{% url 'pack_list' %}">Накладную</a></li>
+                <li><a class="dropdown-item" href="{% url 'agent_new' %}">Контрагента</a></li>
+              </ul>
+            </li>{% endif %}
+            <li class="nav-item active">
+              <a class="nav-link active" href="{% url 'about' %}">О нас</a>
             </li>
           </ul>
           <ul>
-            <a class="btn btn-outline-success" type="submit">Войти</a>
+            {% if user.is_authenticated %}
+              <a class="btn btn-outline-success" type="submit" href="{% url 'logout' %}">Выход</a>
+            {% else %}
+              <a class="btn btn-outline-success" type="submit" href="{% url 'authentication' %}">Вход/Регистрация</a>
+            {% endif %}
           </ul>
         </div>
       </div>
