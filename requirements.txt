@@ -11,3 +11,4 @@ reportlab==3.6.11
 six==1.16.0
 sqlparse==0.4.2
 tzdata==2022.2
+dj_database_url
