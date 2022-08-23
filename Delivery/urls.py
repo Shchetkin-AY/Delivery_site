@@ -38,7 +38,7 @@ urlpatterns = [
     path('packing_lists/', PackingLists.as_view(), name="packing_lists"),
     path('packing_lists/new', PackingListNew.as_view(), name="pack_list"),
     path('packing_lists/<int:pk>/edit', PackingListEdit.as_view(), name="list_edit"),
-    path('packing_lists/<int:pk>/print', MyPDF.as_view(), name="list_print"),
+    path('packing_lists/<int:pk>/print?as=html', MyPDF.as_view(), name="list_print"),
     path('packing_lists/<int:pk>/delete/', PackingListDelete.as_view(), name="delete_list"),
 
     path('registration/', RegisterUserView.as_view(), name='registration'),
