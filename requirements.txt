@@ -1,6 +1,7 @@
 asgiref==3.5.2
 Django==4.1
 django-crispy-forms==1.14.0
+django-pdfkit
 django-widget-tweaks==1.4.12
 django-wkhtmltopdf==3.4.0
 wkhtmltopdf-pack-ng

@@ -6,6 +6,7 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django_pdfkit import PDFView
 
 from wkhtmltopdf.views import PDFTemplateResponse
 
@@ -98,7 +99,7 @@ class PackingListEdit(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 # печать PDF
-class MyPDF(DetailView):
+class MyPDF(PDFView, DetailView):
     template_name = 'manager/print_pdf.html'
     context = {'title': 'List'}
     model = PackingList
