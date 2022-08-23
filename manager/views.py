@@ -100,7 +100,7 @@ class PackingListEdit(LoginRequiredMixin, UpdateView):
 # печать PDF
 class MyPDF(DetailView):
     template_name = 'manager/print_pdf.html'
-    context = {'title': 'Накладная'}
+    context = {'title': 'List'}
     model = PackingList
 
     def get(self, request, *args, **kwargs):
