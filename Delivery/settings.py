@@ -29,9 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', '*', 'localhost', '127.0.0.1', 'manager-delivery.herokuapp.com']
 
-# STATIC_ROOT = 'static'
+STATIC_ROOT = "static/staticfiles"
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 # Application definition
