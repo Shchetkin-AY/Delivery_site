@@ -95,12 +95,14 @@ class PackingListForm(ModelForm):
                   'destination': _('Получатель'),
                   'content': _('Описание груза'),
                   }
+
 class AgentForm(ModelForm):
+    phone = forms.CharField(label='Номер телефона', widget=forms.TextInput(attrs={'placeholder': '+7(999)-999-9999'}))
     class Meta:
         model = Agent
         fields = '__all__'
         labels = {'company': _('Название'),
-                  'phone': _('Номер телефона'),
+                  # 'phone': _('Номер телефона'),
                   'inn_number': _('ИНН'),
                   }
 

@@ -14,42 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.conf.urls.static import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.generic.base import RedirectView
 
-from django.contrib.auth.views import LogoutView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.conf import settings
 
-from manager.views import About, AgentNew, AgentEdit, AllAgents, MainView, PackingListNew, PackingLists, \
-                            PackingListDelete, PackingListEdit, MyPDF, LoginUserView, RegisterUserView, \
-                            custom_handler404, custom_handler500
+from manager.views import MainView, custom_handler404, custom_handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('favicon.ico', RedirectView.as_view(url='/static/img/favicon.ico', permanent=True)),
     path('', MainView.as_view(), name="main"),
-    path('about/', About.as_view(), name="about"),
-    path('all_agents/', AllAgents.as_view(), name="all_agents"),
-    path('all_agents/new', AgentNew.as_view(), name="agent_new"),
-    path('all_agents/<int:pk>/edit', AgentEdit.as_view(), name="agent_edit"),
+    path('delivery/', include('manager.urls'))
+    ]
 
-    path('packing_lists/', PackingLists.as_view(), name="packing_lists"),
-    path('packing_lists/new', PackingListNew.as_view(), name="pack_list"),
-    path('packing_lists/<int:pk>/edit', PackingListEdit.as_view(), name="list_edit"),
-    path('packing_lists/<int:pk>/print', MyPDF.as_view(), name="list_print"),
-    path('packing_lists/<int:pk>/delete/', PackingListDelete.as_view(), name="delete_list"),
-
-    path('registration/', RegisterUserView.as_view(), name='registration'),
-    path('authentication/', LoginUserView.as_view(), name='authentication'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
-    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static('favicon.ico', document_root='static/favicon.ico')
 
 
 handler404 = custom_handler404

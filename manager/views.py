@@ -1,3 +1,4 @@
+import django.http
 from django.http import HttpResponseNotFound, HttpResponseServerError
 
 from django.shortcuts import redirect
@@ -98,25 +99,26 @@ class PackingListEdit(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 # печать PDF
-class MyPDF(DetailView):
+class MyPDF(LoginRequiredMixin, DetailView):
+    filename = 'my_pdf.pdf'
     template_name = 'manager/print_pdf.html'
-    context = {'title': 'Накладная'}
+    context = {'title': 'list'}
     model = PackingList
 
     def get(self, request, *args, **kwargs):
         self.context['list'] = self.get_object()
 
         response = PDFTemplateResponse(request=request,
-                                     template=self.template_name,
-                                     filename ="Накладная.pdf",
-                                     context=self.context,
-                                     show_content_in_browser=True,
-                                     cmd_options={'margin-top': 10,}
-                                     )
+                                         template=self.template_name,
+                                         filename =self.filename,
+                                         context=self.context,
+                                         show_content_in_browser=True,
+                                         cmd_options={'margin-top': 10,}
+                                         )
         return response
 
 # удалить накладную
-class PackingListDelete(DeleteView):
+class PackingListDelete(LoginRequiredMixin, DeleteView):
     model = PackingList
     template_name = "manager/delite_list.html"
     success_url = '/packing_lists/'

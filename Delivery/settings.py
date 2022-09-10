@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+import dj_database_url
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,8 +27,11 @@ SECRET_KEY = 'django-insecure-ol*(ieplca)egpkhw!bw@1lesqz@u*#0tnf@i^s81$(7%&(b%g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-STATIC_ROOT = 'static'
+ALLOWED_HOSTS = ['0.0.0.0', '*', 'localhost', '127.0.0.1', 'manager-delivery.herokuapp.com']
+
+# STATIC_ROOT = 'static'
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
 
 
 # Application definition
@@ -89,6 +94,8 @@ DATABASES = {
     }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -126,14 +133,13 @@ USE_TZ = True
 USE_L10N = False
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
-STATIC_URL = 'manager/static/'
-MEDIA_URL = '/media/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+WKHTMLTOPDF_CMD_OPTIONS = {
+     'quiet': False,
+}
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGOUT_REDIRECT_URL = '/'
