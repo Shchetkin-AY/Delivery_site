@@ -25,10 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ol*(ieplca)egpkhw!bw@1lesqz@u*#0tnf@i^s81$(7%&(b%g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', '*', 'localhost', '127.0.0.1', 'manager-delivery.herokuapp.com']
-STATIC_ROOT = 'static'
+
+# STATIC_ROOT = 'static'
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
 
 
 # Application definition
@@ -86,7 +89,7 @@ DATABASES = {
         'NAME': 'db_delivery',
         'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': '127.0.01',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -130,14 +133,13 @@ USE_TZ = True
 USE_L10N = False
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
-STATIC_URL = 'manager/static/'
-MEDIA_URL = '/media/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+WKHTMLTOPDF_CMD_OPTIONS = {
+     'quiet': False,
+}
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGOUT_REDIRECT_URL = '/'
