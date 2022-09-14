@@ -15,12 +15,12 @@ class RegisterUserView(CreateView):
     def form_valid(self, form):
         if form.is_valid():
             form.save()
-            return redirect('authentication')
+            return redirect('login')
         return super(RegisterUserView, self).form_valid(form)
 
 
 # страница аутентификации пользователя
 class LoginUserView(LoginView):
-    template_name = 'manager/authentication.html'
+    template_name = 'manager/login.html'
     authentication_form = LoginUserForm
     next_page = 'main'

@@ -27,8 +27,8 @@ from manager.views import MainView, custom_handler404, custom_handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('account.urls')),
-    path('social-auth/', include('social_django.urls', namespace="social")),
+    path('', include('account.urls')),
+    # path('oauth/', include('social_django.urls', namespace="social")),
     path('', include('manager.urls'))
 
     ]

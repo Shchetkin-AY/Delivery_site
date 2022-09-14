@@ -24,6 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ol*(ieplca)egpkhw!bw@1lesqz@u*#0tnf@i^s81$(7%&(b%g'
 
+# Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '639081894400-abr7n5dno97odcf7cs753vb9s72o57q3.apps.googleusercontent.com'
+
+# Google Consumer Secret
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -57,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'Delivery.urls'
@@ -86,23 +93,23 @@ WSGI_APPLICATION = 'Delivery.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_delivery',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'db_delivery',
+#         'USER': 'postgres',
+#         'PASSWORD': 'admin',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
@@ -153,8 +160,8 @@ WKHTMLTOPDF_CMD_OPTIONS = {
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 SOCIAL_AUTH_PIPELINE = [
@@ -171,9 +178,6 @@ SOCIAL_AUTH_PIPELINE = [
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '639081894400-abr7n5dno97odcf7cs753vb9s72o57q3.apps.googleusercontent.com' # Google Consumer Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Consumer Secret
-
-LOGIN_URL = '/auth/login/google-oauth2/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
+LOGOUT_REDIRECT_URL = 'main'
