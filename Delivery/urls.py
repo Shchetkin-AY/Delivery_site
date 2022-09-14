@@ -27,9 +27,10 @@ from manager.views import MainView, custom_handler404, custom_handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('favicon.ico', RedirectView.as_view(url='/static/img/favicon.ico', permanent=True)),
-    path('', MainView.as_view(), name="main"),
-    path('delivery/', include('manager.urls'))
+    path('account/', include('account.urls')),
+    path('social-auth/', include('social_django.urls', namespace="social")),
+    path('', include('manager.urls'))
+
     ]
 
 

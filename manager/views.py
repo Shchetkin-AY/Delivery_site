@@ -6,31 +6,13 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, DetailView, View
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
+
 
 from wkhtmltopdf.views import PDFTemplateResponse
 
-from manager.forms import PackingListForm, AgentForm, CreateUserForm, LoginUserForm
+from manager.forms import PackingListForm, AgentForm
 from manager.models import Agent, PackingList
 
-
-# Страница регистрации нового пользователя. При создании идет проверка соответствия требованиям
-class RegisterUserView(CreateView):
-    template_name = 'manager/registration.html'
-    form_class = CreateUserForm
-    success_url = 'authentication'
-    def form_valid(self, form):
-        if form.is_valid():
-            form.save()
-            return redirect('authentication')
-        return super(RegisterUserView, self).form_valid(form)
-
-
-# страница аутентификации пользователя
-class LoginUserView(LoginView):
-    template_name = 'manager/authentication.html'
-    authentication_form = LoginUserForm
-    next_page = 'main'
 
 # главная старница
 class MainView(TemplateView):
