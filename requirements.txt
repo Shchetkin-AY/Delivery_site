@@ -13,3 +13,4 @@ sqlparse==0.4.2
 tzdata==2022.2
 dj_database_url
 social-auth-app-django
+whitenoise

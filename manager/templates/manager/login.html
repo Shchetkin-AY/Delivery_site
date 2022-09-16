@@ -1,39 +1,42 @@
 {% extends 'manager/_header.html' %}
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
-
+{% load static %}
 {% block content %}
 
-<form method="post">
-{% csrf_token %}
-  <div class="container">
-    <div class="row">
-      <div class="col-8 col-lg-4 offset-2 offset-lg-4">
-        <div class="text-center mt-5 b-1">
-          <h1 class="h3 mb-3 font-weight-normal">Добро пожаловать</h1>
-            <h5 class="h15 mb-3 font-weight-light">Войдите чтобы управлять</h5>
-            {{ form|crispy }}
-            <br>
-            <button type="submit" class="btn btn-success">Войти</button>
-              <div>
-              <br>
-                <li class="google">
-                  <a href="{% url 'social:begin' 'google-oauth2' %}?next=main">Войти с Google+</a>
-                </li>
-              </div>
-            <div class="mt-4 text-center"><p>Нет аккаунта? <a href="{% url "registration" %}" target="_parent">Зарегистрируйтесь!</a></p></div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-8 col-lg-4 offset-2 offset-lg-4">
+                    <div class="text-center mt-5 b-1">
+                        <h1 class="h3 mb-3 font-weight-normal">Добро пожаловать</h1>
+                        <h5 class="h15 mb-3 font-weight-light">Войдите чтобы управлять</h5>
+                        <div style="padding:1em">{{ form|crispy }}</div>
+                        <div class="btn-group" style="text-align:center; padding:1em">
+                            <a class='btn btn-success disabled'><i
+                                    style="width:16px; height:20px"><img
+                                    src="{% static 'staticfiles/favicon_head.ico' %}"
+                                    style="width:16px; height:20px"></i></a>
+                            <a type="submit" class="btn btn-success" style="width:12em">Войти</a>
+                        </div>
+                        <div class="btn-group" style="text-align:center; padding:2px">
+                            <a class='btn btn-danger disabled'><i class="fa fa-google-plus"
+                                                                  style="width:16px; height:20px"></i></a>
+                            <a class='btn btn-danger' href='{% url 'social:begin' 'google-oauth2' %}?next=main'
+                               style="width:12em"> Войти с Google+</a>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center"><p>Нет аккаунта? <a href="{% url "registration" %}" target="_parent">Зарегистрируйтесь!</a>
+                    </p></div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</form>
+        </div>
+    </form>
 
-<script type="text/javascript">
-	$("#id_password").password('toggle');
-</script>
+    <script type="text/javascript">
+        $("#id_password").password('toggle');
+    </script>
 
 {% endblock content %}
-
-<li class="google">
-    <a href="{% url "social:begin" "google" %}">Login with Google</a>
-</li>
