@@ -1,45 +1,18 @@
 {% extends 'manager/_header.html' %}
 
 {% block content %}
-{#        <div class="card">#}
-{#          <div class="card-body px-4 pb-4">#}
-{#            <section class="tab-pane fade show active">#}
-{#              <h2 class="h4 pt-2 pb-3">Список контрагентов</h2>#}
-{#              {% for agent in agents %}#}
-{#              <div class="card mt-3">#}
-{##}
-{#                <div class="card-body px-4">#}
-{#                  <div class="row align-items-center">#}
-{#                    <div class="col-6 col-lg-8">#}
-{#                      <p class="mb-1">#}
-{#                        <span class="text">{{ agent.company }}</span>#}
-{#                      </p>#}
-{#                      <p class="mb-2">#}
-{#                        <span class="text" >{{ agent.phone }}</span>#}
-{#                      </p>#}
-{#                    </div>#}
-{#                    <div class="col-6 text-right">#}
-{#                      <a href="{% url 'agent_edit' agent.pk %}" class="btn btn-outline-info btn-sm">Просмотреть</a>#}
-{#                    </div>#}
-{#                  </div>#}
-{#                </div>#}
-{##}
-{#              </div>{% endfor %}#}
-{#              <div class="form-group pt-4">#}
-{#              <a href="{% url 'agent_new' %}" class="btn btn-primary">Добавить контрагента</a>#}
-{#              </div>#}
-{#            </section>#}
-{#          </div>#}
-{#        </div>#}
-{#      </div>#}
-{#    </div>#}
      <div class="card">
       <div class="card-body px-4 pb-4">
         <section class="tab-pane fade show active">
-          <h2 class="h4 pt-2 pb-3">Список контрагентов</h2>
-            <div class="row">
-              <div class="col-md">
-                <table class="table table-sm">
+        <br>
+        <div class="row">
+          <h2 class="col-md-11 h4">Список контрагентов</h2>
+          <a class="col-sm-1 pull-right btn btn-outline-primary" type="submit" href="{% url 'agent_new' %}">Создать</a>
+        </div>
+        <br>
+          <div class="row text-center">
+            <div class="col-md">
+              <table class="table table-sm">
                 <tr>
                   <th></th>
                   <th>Название компании</th>
@@ -56,10 +29,10 @@
                   <td><a class="btn btn-outline-secondary btn-sm" href="{% url 'agent_edit' adent.pk %}">Просмотреть/обновить</a></td>
                 </tr>
                 {% endfor %}
-                </table>
-              </div>
+              </table>
             </div>
-       </section>
+          </div>
+        </section>
       </div>
     </div>
   </div>

@@ -38,15 +38,7 @@
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'all_agents' %}">Список контрагентов</a>
             </li>
-            <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Создать
-              </a>
-              <ul class="dropdown-menu active">
-                <li><a class="dropdown-item" href="{% url 'pack_list' %}">Накладную</a></li>
-                <li><a class="dropdown-item" href="{% url 'agent_new' %}">Контрагента</a></li>
-              </ul>
-            </li>{% endif %}
+            {% endif %}
             <li class="nav-item active">
               <a class="nav-link active" href="{% url 'about' %}">О нас</a>
             </li>
