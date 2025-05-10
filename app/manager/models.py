@@ -20,4 +20,3 @@ class PackingList(models.Model):
 
 
 
-

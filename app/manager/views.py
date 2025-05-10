@@ -7,15 +7,12 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 
-from wkhtmltopdf.views import PDFTemplateResponse
-
-from manager.forms import PackingListForm, AgentForm, CreateUserForm, LoginUserForm
-from manager.models import Agent, PackingList
-
+from app.manager.forms import PackingListForm, AgentForm, CreateUserForm, LoginUserForm
+from app.manager.models import Agent, PackingList
 
 # Страница регистрации нового пользователя. При создании идет проверка соответствия требованиям
 class RegisterUserView(CreateView):
-    template_name = 'manager/registration.html'
+    template_name = 'registration.html'
     form_class = CreateUserForm
     success_url = 'authentication'
     def form_valid(self, form):
@@ -24,20 +21,19 @@ class RegisterUserView(CreateView):
             return redirect('authentication')
         return super(RegisterUserView, self).form_valid(form)
 
-
 # страница аутентификации пользователя
 class LoginUserView(LoginView):
-    template_name = 'manager/authentication.html'
+    template_name = 'authentication.html'
     authentication_form = LoginUserForm
     next_page = 'main'
 
 # главная старница
 class MainView(TemplateView):
-    template_name = 'manager/index.html'
+    template_name = 'index.html'
 
 # список контрагентов
 class AllAgents(LoginRequiredMixin, TemplateView):
-    template_name = 'manager/all_agents.html'
+    template_name = 'all_agents.html'
 
     def get_context_data(self, **kwargs):
         context = super(AllAgents, self).get_context_data(**kwargs)
@@ -46,7 +42,7 @@ class AllAgents(LoginRequiredMixin, TemplateView):
 
 # создать контрагента
 class AgentNew(LoginRequiredMixin ,CreateView):
-    template_name = 'manager/new_agent.html'
+    template_name = 'new_agent.html'
     form_class = AgentForm
     success_url = '/all_agents/'
 
@@ -55,7 +51,7 @@ class AgentNew(LoginRequiredMixin ,CreateView):
 
 # редактировнае контрагента
 class AgentEdit(LoginRequiredMixin, UpdateView):
-    template_name = 'manager/new_agent.html'
+    template_name = 'new_agent.html'
     form_class = AgentForm
     success_url = '/all_agents/'
 
@@ -68,7 +64,7 @@ class AgentEdit(LoginRequiredMixin, UpdateView):
 
 # список накладных
 class PackingLists(LoginRequiredMixin, TemplateView):
-    template_name = 'manager/all_lists.html'
+    template_name = 'all_lists.html'
 
     def get_context_data(self, **kwargs):
         context = super(PackingLists, self).get_context_data(**kwargs)
@@ -77,7 +73,7 @@ class PackingLists(LoginRequiredMixin, TemplateView):
 
 # создание накладной
 class PackingListNew(LoginRequiredMixin, CreateView, View):
-    template_name = 'manager/new_list.html'
+    template_name = 'new_list.html'
     form_class = PackingListForm
     success_url = '/packing_lists/'
 
@@ -86,7 +82,7 @@ class PackingListNew(LoginRequiredMixin, CreateView, View):
 
 # редактировнае накладной
 class PackingListEdit(LoginRequiredMixin, UpdateView):
-    template_name = 'manager/new_list.html'
+    template_name = 'new_list.html'
     form_class = PackingListForm
     success_url = '/packing_lists/'
 
@@ -97,28 +93,10 @@ class PackingListEdit(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-# печать PDF
-class MyPDF(DetailView):
-    template_name = 'manager/print_pdf.html'
-    context = {'title': 'Накладная'}
-    model = PackingList
-
-    def get(self, request, *args, **kwargs):
-        self.context['list'] = self.get_object()
-
-        response = PDFTemplateResponse(request=request,
-                                     template=self.template_name,
-                                     filename ="Накладная.pdf",
-                                     context=self.context,
-                                     show_content_in_browser=True,
-                                     cmd_options={'margin-top': 10,}
-                                     )
-        return response
-
 # удалить накладную
 class PackingListDelete(DeleteView):
     model = PackingList
-    template_name = "manager/delite_list.html"
+    template_name = "delite_list.html"
     success_url = '/packing_lists/'
 
     def delete(self, request, *args, **kwargs):
@@ -128,7 +106,7 @@ class PackingListDelete(DeleteView):
 
 # страница о нас
 class About(TemplateView):
-    template_name = 'manager/about.html'
+    template_name = 'about.html'
 
 # хэндлеры ошибок
 def custom_handler404(request, exception=None):

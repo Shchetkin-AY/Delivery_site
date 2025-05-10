@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.forms import UserCreationForm, UsernameField
-from manager.models import PackingList, Agent, User
+from app.manager.models import PackingList, Agent, User
 
 class CreateUserForm(UserCreationForm):
 
@@ -103,4 +103,3 @@ class AgentForm(ModelForm):
                   'phone': _('Номер телефона'),
                   'inn_number': _('ИНН'),
                   }
-

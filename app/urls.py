@@ -1,4 +1,4 @@
-"""Delivery URL Configuration
+"""delivery URL Configuration
 
 The urlpatterns list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -23,8 +23,8 @@ from django.contrib.auth.views import LogoutView
 
 from django.conf import settings
 
-from manager.views import About, AgentNew, AgentEdit, AllAgents, MainView, PackingListNew, PackingLists, \
-                            PackingListDelete, PackingListEdit, MyPDF, LoginUserView, RegisterUserView, \
+from app.manager.views import About, AgentNew, AgentEdit, AllAgents, MainView, PackingListNew, PackingLists, \
+                            PackingListDelete, PackingListEdit, LoginUserView, RegisterUserView, \
                             custom_handler404, custom_handler500
 
 urlpatterns = [
@@ -38,7 +38,6 @@ urlpatterns = [
     path('packing_lists/', PackingLists.as_view(), name="packing_lists"),
     path('packing_lists/new', PackingListNew.as_view(), name="pack_list"),
     path('packing_lists/<int:pk>/edit', PackingListEdit.as_view(), name="list_edit"),
-    path('packing_lists/<int:pk>/print', MyPDF.as_view(), name="list_print"),
     path('packing_lists/<int:pk>/delete/', PackingListDelete.as_view(), name="delete_list"),
 
     path('registration/', RegisterUserView.as_view(), name='registration'),
